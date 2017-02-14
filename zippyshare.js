@@ -1,18 +1,22 @@
 // ==UserScript==
-// @name         ZippyShare
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        http://*.zippyshare.com/v/*/file.html
-// @grant        none
+// @name        ZippyShare
+// @namespace   yanagiragi
+// @include     http://*.zippyshare.com/v/*/file.html
+// @version     1
+// @grant       none
 // ==/UserScript==
-
-// Purpose : Trigger Download Button and avoid ads
+// if error occurs with closing windows, try config firefox by accessing about:config
+var set;
 
 (function() {
     'use strict';
     var dl = document.getElementById('dlbutton');
     dl = dl.getAttribute('href');
     location.replace(dl); // start download
+    set = setInterval(closeWindows, 1000 * 3);
 })();
+
+function closeWindows(){
+    window.close();
+    clearInterval(set);
+}
