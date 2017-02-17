@@ -1,3 +1,5 @@
+// IMPORTANT! This file has been depreciated! It's function has merge into eyny.js!
+
 // ==UserScript==
 // @name         Eyny_OrderByDate
 // @namespace    http://tampermonkey.net/
