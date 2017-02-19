@@ -2,7 +2,7 @@
 // @name        Eyny
 // @namespace   yanagiragi
 // @include     http://*.eyny.com/index.php
-// @version     1
+// @version     1.2
 // @grant       none
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // ==/UserScript==
@@ -11,10 +11,10 @@
 // 1. new url with www****.eyny.com, to avoid imgur.com blocking www**.eyny.com
 // 2. Already agreeed you are over 18 years old :)
 // 3. No longer access homepage twice if you're trying to access some forums
-const exclude = ['22']
 
-(function() {
-    'use strict';
+const exclude = ['22']
+//(function() {
+    //'use strict';
       
       $('#hd').siblings()[2].innerHTML = "" // get rid of announcement since it may contain link to specific forum
     
@@ -43,5 +43,16 @@ const exclude = ['22']
           if(exclude.indexOf(fid) == -1)
            $(this).attr('href',`http://yrwww${Math.floor(Math.random() * 1000 + 1000)}.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`)  
         }      
-      })   
-})();
+      })
+      
+      $("span[id*='category']").each(function(){
+        $(this).prev().append('<a class="yrExpand" href="javascript: void(0);">Ep</a>')
+      })
+
+      $('.yrExpand').click(function(event){ 
+        if($(event.target).parent().next().css('display') == 'none')
+          $(event.target).parent().next().css('display','inline');
+        else
+          $(event.target).parent().next().css('display','none');
+      })
+//})();
