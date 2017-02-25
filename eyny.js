@@ -16,6 +16,8 @@ const exclude = ['22']
 //(function() {
     //'use strict';
       
+      document.cookie = 'djAX_e8d7_agree=206;path=/;domain=.eyny.com'; // dealing r18 authentication
+      
       $('#hd').siblings()[2].innerHTML = "" // get rid of announcement since it may contain link to specific forum
     
       var forumId = []
