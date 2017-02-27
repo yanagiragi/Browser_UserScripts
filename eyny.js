@@ -13,48 +13,52 @@
 // 3. No longer access homepage twice if you're trying to access some forums
 
 const exclude = ['22']
-//(function() {
-    //'use strict';
-      $.noConflict();
-      document.cookie = 'djAX_e8d7_agree=206;path=/;domain=.eyny.com'; // dealing r18 authentication
-      
-      $('#hd').siblings()[2].innerHTML = "" // get rid of announcement since it may contain link to specific forum
-    
-      var forumId = []
-      $.ajax({
-          url : `http://${location.hostname}/forum.php?view=all`, 
-          async: false,
-          //headers: { 'Access-Control-Allow-Origin': '*' },
-          method : "get"
-      }).done(function(body){
-        $(body).find('[href]').filter(function(){
-          return this.href.match(/forum((-.)|(\.php\?view=all))/)
-        }).each(function(index, value){
-          forumId.push(value);
-        })
-      })
-      
-      $('[href]').filter(function(){ 
-        return this.href.match(/forum((-.)|(\.php\?view=all))/)
-      }).each(function(index, value){
-        if(value == 'forum.php?view=all'){
-           $(this).attr('href',`http://yrwww${Math.floor(Math.random() * 1000 + 1000)}.eyny.com/forum.php?mod=forumdisplay&fid=${forum[index]}&filter=author&orderby=dateline`)  
-        }
-        else{
-          var fid = value.href.substring( value.href.lastIndexOf('forum-')+6,value.href.lastIndexOf('-'))
-          if(exclude.indexOf(fid) == -1)
-           $(this).attr('href',`http://yrwww${Math.floor(Math.random() * 1000 + 1000)}.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`)  
-        }      
-      })
-      
-      $("span[id*='category']").each(function(){
-        $(this).prev().append('<a class="yrExpand" href="javascript: void(0);">Ep</a>')
-      })
 
-      $('.yrExpand').click(function(event){ 
-        if($(event.target).parent().next().css('display') == 'none')
-          $(event.target).parent().next().css('display','inline');
-        else
-          $(event.target).parent().next().css('display','none');
-      })
-//})();
+document.cookie = 'djAX_e8d7_agree=206;path=/;domain=.eyny.com'; // dealing r18 authentication
+
+$('#hd').siblings()[2].innerHTML = "" // get rid of announcement since it may contain link to specific forum
+
+var forumId = []
+$.ajax({
+    url : `http://${location.hostname}/forum.php?view=all`, 
+    async: false,
+    //headers: { 'Access-Control-Allow-Origin': '*' },
+    method : "get"
+}).done(function(body){
+  $(body).find('[href]').filter(function(){
+    return this.href.match(/forum((-.)|(\.php\?view=all))/)
+  }).each(function(index, value){
+    forumId.push(value);
+  })
+})
+
+$('[href]').filter(function(){ 
+  return this.href.match(/forum((-.)|(\.php\?((view=all)|(mod=forumdisplay\&fid))))/)
+}).each(function(index, value){
+  if(value == 'forum.php?view=all'){
+     $(this).attr('href',`http://yrwww${Math.floor(Math.random() * 1000 + 1000)}.eyny.com/forum.php?mod=forumdisplay&fid=${forum[index]}&filter=author&orderby=dateline`)  
+  }
+  else{
+    if(value.href.match(/forum\.php\?mod=forumdisplay&fid./)){
+      var fid = value.href.substring(value.href.lastIndexOf('=')+1,value.href.length);
+      if(exclude.indexOf(fid) == -1)
+       $(this).attr('href',`http://yrwww${Math.floor(Math.random() * 1000 + 1000)}.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`)  
+    }
+    else{
+    var fid = value.href.substring( value.href.lastIndexOf('forum-')+6,value.href.lastIndexOf('-'))
+    if(exclude.indexOf(fid) == -1)
+     $(this).attr('href',`http://yrwww${Math.floor(Math.random() * 1000 + 1000)}.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`)  
+    }
+  }      
+})
+
+$("span[id*='category']").each(function(){
+  $(this).prev().append('<a class="yrExpand" href="javascript: void(0);">Ep</a>')
+})
+
+$('.yrExpand').click(function(event){ 
+  if($(event.target).parent().next().css('display') == 'none')
+    $(event.target).parent().next().css('display','inline');
+  else
+    $(event.target).parent().next().css('display','none');
+})
