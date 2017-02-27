@@ -3,9 +3,11 @@
 // @namespace   yanagiragi
 // @include     http://*.eyny.com/thread*
 // @include     http://*.eyny.com/forum.php?mod=viewthread&tid=*
-// @version     1
+// @include     http://*.eyny.com/forum.php?mod=forumdisplay&fid*
+// @version     1.3
 // @grant       none
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
+// @description Hide Image on eyny.com
 // ==/UserScript==
 
 $(`
@@ -67,4 +69,5 @@ $(btn).click(function(event){
     $('img').each(function(index, value){ $(this).css('display','none')})
 })
 
-$('img').each(function(index, value){ $(this).css('display','none')})
+// default show all
+//$('img').each(function(index, value){ $(this).css('display','none')})
