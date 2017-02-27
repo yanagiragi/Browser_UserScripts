@@ -4,12 +4,12 @@
 // @include     http://*.eyny.com/thread*
 // @include     http://*.eyny.com/forum.php?mod=viewthread&tid=*
 // @include     http://*.eyny.com/forum.php?mod=forumdisplay&fid*
-// @version     1.3
+// @version     1.4
 // @grant       none
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @description Hide Image on eyny.com
 // ==/UserScript==
-
+$ = jQuery.noConflict(true);
 $(`
 <style>
 .myButton {

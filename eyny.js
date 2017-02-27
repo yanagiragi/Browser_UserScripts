@@ -2,7 +2,7 @@
 // @name        Eyny
 // @namespace   yanagiragi
 // @include     http://*.eyny.com/index.php
-// @version     1.2
+// @version     1.3
 // @grant       none
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // ==/UserScript==
@@ -13,6 +13,8 @@
 // 3. No longer access homepage twice if you're trying to access some forums
 
 const exclude = ['22']
+
+$ = jQuery.noConflict(true);
 
 document.cookie = 'djAX_e8d7_agree=206;path=/;domain=.eyny.com'; // dealing r18 authentication
 
@@ -52,7 +54,8 @@ $('[href]').filter(function(){
   }      
 })
 
-$("span[id*='category']").each(function(){
+// No Longer Needed. Since there is native way to use
+/*$("span[id*='category']").each(function(){
   $(this).prev().append('<a class="yrExpand" href="javascript: void(0);">Ep</a>')
 })
 
@@ -61,4 +64,4 @@ $('.yrExpand').click(function(event){
     $(event.target).parent().next().css('display','inline');
   else
     $(event.target).parent().next().css('display','none');
-})
+})*/
