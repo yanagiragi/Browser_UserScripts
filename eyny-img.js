@@ -4,12 +4,12 @@
 // @include     http://*.eyny.com/thread*
 // @include     http://*.eyny.com/forum.php?mod=viewthread&tid=*
 // @include     http://*.eyny.com/forum.php?mod=forumdisplay&fid*
-// @version     1.4
+// @version     1.5
 // @grant       none
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @description Hide Image on eyny.com
 // ==/UserScript==
-$ = jQuery.noConflict(true);
+$ = jQuery.noConflict(true)
 $(`
 <style>
 .myButton {
@@ -54,7 +54,7 @@ $(`
 }
 </sytle>`).appendTo('head')
 
-var btn = jQuery('#append_parent').append("<a href='#' class='myButton' style=' \
+var btn = $('#append_parent').append("<a href='#' class='myButton' style=' \
                                           text-decoration : none; \
                                           position: fixed; \
                                           margin-top: 10px; \
