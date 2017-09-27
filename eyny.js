@@ -3,8 +3,9 @@
 // @namespace   yanagiragi
 // @include     http://*.eyny.com/index.php
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
-// @version     1.6
+// @version     1.7
 // @grant       none
+// @description Simple Enhanced Feature of eyny.com
 // ==/UserScript==
 
 // Purpose : with entering "eyny.com", you will grant
@@ -880,7 +881,6 @@ else{
              return this.href.match(/forum((-.)|(\.php\?((view=all)|(mod=forumdisplay\&fid))))/)
          }).each(function(index, value){
 
-
              if(value.href.indexOf('forum.php?view=all') != -1){
                  index = value.innerHTML;
 
@@ -894,8 +894,7 @@ else{
                  $(this).attr('href',`http://yrwww${Math.floor(Math.random() * 1000 + 1000)}.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`)
              }
              else{
-                 return;
-
+                 
                  if(value.href.match(/forum\.php\?mod=forumdisplay&fid./)){
                      var fid = value.href.substring(value.href.lastIndexOf('=')+1,value.href.length);
                      if(exclude.indexOf(fid) == -1)
