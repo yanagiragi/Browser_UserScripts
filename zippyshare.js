@@ -2,6 +2,7 @@
 // @name        ZippyShare
 // @namespace   yanagiragi
 // @include     http://*.zippyshare.com/v/*/file.html
+// @include     https://*.zippyshare.com/v/*/file.html
 // @version     1
 // @grant       none
 // ==/UserScript==
