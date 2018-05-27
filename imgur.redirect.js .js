@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         i.imgur_redirect
+// @name         imgur.redirect.js 
 // @namespace    yr
-// @version      0.1
+// @version      0.2
 // @description  try to take over the world!
 // @author       Yanagiragi
 // @match        https://i.imgur.com/*
@@ -11,5 +11,6 @@
 (function() {
     'use strict';
     var location = 'https://imgur.com/' + window.location.pathname;
-    window.location = location;
+    if(document.getElementsByTagName('img')[0].getAttribute('alt') != window.location)
+        window.location = location;
 })();
