@@ -2,8 +2,9 @@
 // @name        Eyny
 // @namespace   yanagiragi
 // @include     http://*.eyny.com/index.php
+// @include     https://*.eyny.com/index.php
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
-// @version     1.7
+// @version     1.8
 // @grant       none
 // @description Simple Enhanced Feature of eyny.com
 // ==/UserScript==
@@ -894,7 +895,7 @@ else{
                  $(this).attr('href',`http://yrwww${Math.floor(Math.random() * 1000 + 1000)}.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`)
              }
              else{
-                 
+
                  if(value.href.match(/forum\.php\?mod=forumdisplay&fid./)){
                      var fid = value.href.substring(value.href.lastIndexOf('=')+1,value.href.length);
                      if(exclude.indexOf(fid) == -1)
