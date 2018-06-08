@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name        googleHestia
 // @namespace   yrGoogle
-// @include     https://www.google.com.tw/*
-// @version     1
+// @include     https://www.google.com/*
+// @require     https://code.jquery.com/jquery-3.3.1.slim.min.js
+// @version     1.1
 // @grant       none
 // ==/UserScript==
-
-document.getElementById("hplogo").style["background-size"]= "";
-document.getElementById("hplogo").style["height"]= "298px";
-document.getElementById("hplogo").style["width"]= "321px";
-document.getElementById("hplogo").style["margin-top"]= "-93px";
-document.getElementById("hplogo").style["background"]= "url(https://i.imgur.com/QNV3ma8.png) no-repeat";
+(function(){
+    $('#body center').css('display', 'none')
+    $('#body').append('<center> <img src="https://i.imgur.com/QNV3ma8.png" style="margin-top: 100px"> </center>')
+})();
