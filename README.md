@@ -62,3 +62,11 @@ Features:
 > After: https://www.jiku-chu.com/products/detail.php?product_id=[0-9]* ![](https://i.imgur.com/n5L2UmY.jpg)
 
 > 也就是說，終於可以用 滑鼠中鍵 批量開啟分頁了 Orz
+
+### PraiseP2p
+
+> 在 Facebook 訊息窗中一鍵 (F1) 按出 "大大 <(_ _)>"
+
+> 目前沒有做完，所以可能要先隨便打一個字讓 React 生出那個 dom 才有辦法work
+
+> 開啟網頁後五秒才會生效喔
