@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PraiseP2P
 // @namespace    yr
-// @version      0.1
+// @version      0.2
 // @description  All Hail P2P
 // @author       Yanagiragi
 // @match        https://www.facebook.com/messages/t/*
@@ -21,15 +21,15 @@
 function setKeyPressHandler()
 {
     console.log("Start Working")
-	document.onkeypress = KeyPressHandler
+
+    // For Chrome
+	document.onkeydown = KeyPressHandler
 }
 
 function KeyPressHandler(e)
 {
 	e = e || window.event;
-	var charCode = e.keyCode;
-    
-	if (charCode == "112") { // F1
+	if (e.key == "F2") { // F2
         getSpan();
     }
 }
@@ -42,7 +42,7 @@ function getSpan()
 	// returns HTMLCollection
     var spans = document.getElementsByTagName("span");
     var targetNode = null;
-    
+
 	for (var idx = 0; idx < spans.length; ++idx){
         if(spans[idx].getAttribute("data-text") == "true"){
 			break;
@@ -52,7 +52,7 @@ function getSpan()
 	if(idx < spans.length){
 		targetNode = spans[idx]
     }
-    
+
 	if(targetNode){
 		targetNode.innerHTML += placeHolder;
 		document.getElementsByClassName("notranslate")[0].dispatchEvent(new Event("input", {bubbles: true, cancelable: true}))
