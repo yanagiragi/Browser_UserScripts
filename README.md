@@ -65,7 +65,7 @@ Features:
 
 ### PraiseP2p
 
-> 在 Facebook 訊息窗中一鍵 (F1) 按出 "大大 <(_ _)>"
+> 在 Facebook 訊息窗中一鍵 (F2) 按出 "大大 <(_ _)>"
 
 > 目前沒有做完，所以可能要先隨便打一個字讓 React 生出那個 dom 才有辦法work
 
