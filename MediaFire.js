@@ -20,4 +20,5 @@ var set;
 function closeWindows(){
     window.close();
     clearInterval(set);
+
 }
