@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    yrWnacg
-// @version      1.0
-// @description  try to take over the world!
+// @version      1.1
+// @description  Enhanced download of wnacg
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @author       Yanagiragi
 // @match        https://www.wnacg.org/photos-index-aid-*.html
