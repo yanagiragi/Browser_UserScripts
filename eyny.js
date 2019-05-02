@@ -18,6 +18,7 @@
 // Don't touch this, this is my development flags
 const debug = false
 
+// hard coded forumID, because ajax is slow!
 const exclude = ['22']
 const fourmIDStatic = {
     "時事": "http://www06.eyny.com/forum.php?mod=forumdisplay&fid=1724",
