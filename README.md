@@ -86,18 +86,18 @@ Features:
 
 * invoke download link, close tab after 3 secs (use with browser.download preferences, close tab require set settings in about:config)
 
-
 ---
 
 ### Google-Hestia
+
+![](http://i.imgur.com/UHZjUUw.png)
+
 
 功能:
 
 * 美觀、實用
 
 * 我要一輩子追隨這位王
-
-![](http://i.imgur.com/UHZjUUw.png)
 
 --- 
 
