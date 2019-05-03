@@ -815,7 +815,7 @@ const fourmIDStatic = {
 }
 
 $ = jQuery.noConflict(true);
-document.cookie = '596e55XbD_e8d7_agree=206;path=/;domain=.eyny.com'; // dealing r18 authentication
+document.cookie = '601e55XbD_e8d7_agree=206;path=/;domain=.eyny.com'; // dealing r18 authentication
 
 $('#hd').siblings()[2].innerHTML = "" // get rid of announcement since it may contain link to specific forum
 
