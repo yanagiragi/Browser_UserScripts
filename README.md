@@ -20,6 +20,8 @@ Self use plugins runs with TamperMonkey in Mozilla Firefox
 
 8. [紳士漫畫 快速下載](#Wnacg_Download)
 
+9. [MelonBooks_快速複製](#Melonbooks)
+
 ---
 
 ## [Eyny_伊莉討論區](https://greasyfork.org/zh-TW/scripts/27675-eyny)
@@ -131,8 +133,20 @@ Features:
 
 * 目前開啟網頁後五秒才會生效
 
+---
+
 ### [Wnacg_Download](https://greasyfork.org/zh-TW/scripts/382471-wnacgdownload)
 
 * 請參考 [GreasyFork](https://greasyfork.org/zh-TW/scripts/382471-wnacgdownload)
 
 * 或 [Demo Gif](https://i.imgur.com/7uxkEPb.gif)
+
+---
+
+### [MelonBooks](#MelonBooks)
+
+功能:
+
+* 快速複製 標題, 社團, 網址
+
+![](https://i.imgur.com/2NbbyfE.gif)
