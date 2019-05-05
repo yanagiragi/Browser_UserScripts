@@ -143,7 +143,7 @@ Features:
 
 ---
 
-### [MelonBooks](#MelonBooks)
+### [MelonBooks](https://greasyfork.org/zh-TW/scripts/382647-melonbooks-enhanced)
 
 功能:
 
