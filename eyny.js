@@ -5,7 +5,7 @@
 // @include     http://*.eyny.com/
 // @include     https://*.eyny.com/index.php
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
-// @version     1.9
+// @version     2.0
 // @grant       none
 // @description Simple Enhanced Feature of eyny.com
 // ==/UserScript==
@@ -815,7 +815,7 @@ const fourmIDStatic = {
 }
 
 $ = jQuery.noConflict(true);
-document.cookie = '601e55XbD_e8d7_agree=206;path=/;domain=.eyny.com'; // dealing r18 authentication
+document.cookie = '602e55XbD_e8d7_agree=206;path=/;domain=.eyny.com'; // dealing r18 authentication
 
 $('#hd').siblings()[2].innerHTML = "" // get rid of announcement since it may contain link to specific forum
 
