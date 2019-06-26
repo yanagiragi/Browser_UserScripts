@@ -2,7 +2,7 @@
 // @name         wnacgDownload
 // @namespace    yrWnacg
 // @version      1.2
-// @description  Enhanced download of wnacg
+// @description  Use GM_download to bypass browser ignore download attribute in a tag when CORS occurs
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @author       Yanagiragi
 // @match        https://www.wnacg.org/photos-index-aid-*.html
