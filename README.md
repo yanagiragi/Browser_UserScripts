@@ -135,11 +135,11 @@ Features:
 
 ---
 
-### [Wnacg_Download](https://greasyfork.org/zh-TW/scripts/382471-wnacgdownload)
+### [Wnacg_Download](https://greasyfork.org/zh-TW/scripts/386909-wnacgdownload)
 
-* 請參考 [GreasyFork](https://greasyfork.org/zh-TW/scripts/382471-wnacgdownload)
+* 請參考 [GreasyFork](https://greasyfork.org/zh-TW/scripts/386909-wnacgdownload)
 
-* 或 [Demo Gif](https://i.imgur.com/7uxkEPb.gif)
+* 或 [Demo Gif](https://i.imgur.com/Qz021wc.gif)
 
 ---
 
