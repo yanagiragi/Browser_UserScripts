@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    yrWnacg
-// @version      1.9
+// @version      2.0
 // @description  Enhanced download of wnacg
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @author       Toudaimori
-// @include      /https:\/\/(.|\.)*wnacg\.[a-zA-Z]+\/photos\-index\-aid\-[0-9]*\.html/
+// @match        https://www.wnacg.com/photos-index-aid-*.html
+// @match        https://www.wnacg.org/photos-index-aid-*.html
 // @grant 	     GM.xmlHttpRequest
 // @grant 	     GM_download
 // ==/UserScript==
