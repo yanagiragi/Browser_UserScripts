@@ -5,7 +5,7 @@
 // @include     http://*.eyny.com/
 // @include     https://*.eyny.com/index.php
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
-// @version     2.1
+// @version     2.2
 // @grant       none
 // @description Simple Enhanced Feature of eyny.com
 // ==/UserScript==
@@ -838,7 +838,7 @@ function GetforumID(useStatic=true){
 function ByPassR18Authentication()
 {   
   	const cookiePrefix = document.cookie.split(';').filter(x => x.includes('lastvisit='))[0].match(/(.*)_lastvisit/)[1]
-    document.cookie = `${cookiePrefix}_agree=206;expires=Thu, 30 May 2099 16:26:30 GMT; Domain=.eyny.com`
+    document.cookie = `${cookiePrefix}_agree=999;expires=Thu, 30 May 2099 16:26:30 GMT; Domain=.eyny.com`
 }
 
 function ReplaceElement(element, fid) {
