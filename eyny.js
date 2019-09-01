@@ -5,7 +5,7 @@
 // @include     http://*.eyny.com/
 // @include     https://*.eyny.com/index.php
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
-// @version     2.2
+// @version     2.3
 // @grant       none
 // @description Simple Enhanced Feature of eyny.com
 // ==/UserScript==
@@ -843,7 +843,7 @@ function ByPassR18Authentication()
 
 function ReplaceElement(element, fid) {
     if(!exclude.includes(fid)){
-        element.href = `http://yrwww${seed}.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`    
+        element.href = `https://yrwww${seed}.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`
     }
 }
 
