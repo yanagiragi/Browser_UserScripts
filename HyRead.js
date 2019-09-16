@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Black HyRead
 // @namespace    Yr
-// @version      0.1
-// @description  try to take over the world!
-// @author       Yanagiragi
+// @version      1.0
+// @description  Download hyread ebook
+// @author       toudaimori
 // @match        https://service.ebook.hyread.com.tw/ebookservice/epubreader/hyread/v3/reader.jsp
 // @require  https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js
 // @require  https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.js
@@ -81,9 +81,9 @@ function getImageBase64(index, path)
     })
 }
 
-const btnText = `<a style="position: absolute;top: 50px;left: 10px;">下載</a>`
+const btn = $(`<a id="yrBtn" style="position: absolute;top: 50px;left: 10px;">下載</a>`)
 
-const btn = $('body').append(btnText);
+$('body').append(btn)
 
 btn.on('click', event => {
     console.log('click')
