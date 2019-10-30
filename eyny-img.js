@@ -4,7 +4,10 @@
 // @include     http://*.eyny.com/thread*
 // @include     http://*.eyny.com/forum.php?mod=viewthread&tid=*
 // @include     http://*.eyny.com/forum.php?mod=forumdisplay&fid*
-// @version     1.5
+// @include     https://*.eyny.com/thread*
+// @include     https://*.eyny.com/forum.php?mod=viewthread&tid=*
+// @include     https://*.eyny.com/forum.php?mod=forumdisplay&fid*
+// @version     1.6
 // @grant       none
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @description Hide Image on eyny.com
