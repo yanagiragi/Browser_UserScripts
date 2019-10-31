@@ -5,7 +5,7 @@
 // @include     http://*.eyny.com/
 // @include     https://*.eyny.com/index.php
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
-// @version     2.3
+// @version     2.4
 // @grant       none
 // @description Simple Enhanced Feature of eyny.com
 // ==/UserScript==
@@ -22,19 +22,35 @@ const exclude = ['22']
 const $ = jQuery.noConflict(true);
 const seed = Math.floor(Math.random() * 1000 + 1000)
 
-function GetForumIDDynamic()
+async function GetForumIDDynamic()
 {
-    // Need Refactor
-    let container = {}
-    $('[href]').filter(() => this.href.match(/forum((-.)|(\.php\?((view=all)|(mod=forumdisplay\&fid))))/))
-    .each((index, value) => {
-        container[value.innerHTML] = value.href
-    })
+    const container = {}
+    function getData(ajaxurl) {
+        return $.ajax({
+            url: ajaxurl,
+            type: 'GET',
+        })
+    }
+
+    const res = await getData('http://www10.eyny.com/forum.php?view=all')
+    const linkEntries = Object.values($('[href]', $.parseHTML(res)))
+
+    for(let i = 0; i < linkEntries.length; ++i){
+        if (typeof linkEntries[i] == 'undefined' || typeof linkEntries[i].href == 'undefined') { continue }
+        const href = linkEntries[i].href
+        const html = linkEntries[i].innerHTML
+        if(href.match(/forum((-.)|(\.php\?((view=all)|(mod=forumdisplay\&fid))))/)) {
+            container[html] = href
+        }
+    }
+
+    // output for debug
     console.log(JSON.stringify(container, null, 4))
+    return container
 }
 
 // hard coded forumID, because ajax is slow!
-function GetforumIDStatic()
+function GetForumIDStatic()
 {
     return {
         "時事": "1724",
@@ -831,8 +847,8 @@ function GetforumIDStatic()
     }
 }
 
-function GetforumID(useStatic=true){
- 	return useStatic ? GetforumIDStatic() : GetforumIDDynamic() 
+function GetForumID(useStatic=true){
+ 	return useStatic ? GetForumIDStatic() : GetForumIDDynamic()
 }
 
 function ByPassR18Authentication()
@@ -847,7 +863,7 @@ function ReplaceElement(element, fid) {
     }
 }
 
-function Main()
+async function Main()
 {
     ByPassR18Authentication()
 
@@ -861,7 +877,7 @@ function Main()
     const type2Regex = /(.*)forum.php\?mod=forumdisplay&fid=([0-9]+)/
     const regexPattern = /forum((-.)|(\.php\?((view=all)|(mod=forumdisplay\&fid))))/
     const hrefs = [...document.getElementsByTagName('a')].filter(x => x.href && x.href.match(regexPattern))
-    const forumIDStatic = GetforumID()
+    const forumIDStatic = await GetForumID(false)
 
     hrefs.map(element => {
         if (element.href.slice(-5) === '.html'){ // type1
