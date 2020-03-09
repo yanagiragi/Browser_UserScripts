@@ -1,4 +1,4 @@
-# Ragi_Browser_Plugins
+# Browser_UserScripts
 
 Self use plugins runs with TamperMonkey in Mozilla Firefox
 
