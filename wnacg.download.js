@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    yrWnacg
-// @version      2.2
+// @version      2.3
 // @description  Enhanced download of wnacg
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @author       Toudaimori
-// @match        https://*.wnacg.com/photos-index-aid-*.html
-// @match        https://*.wnacg.org/photos-index-aid-*.html
+// @match        http*://*.wnacg.com/photos-index-page-*.html
+// @match        http*://*.wnacg.org/photos-index-page-*.html
+// @match        http*://*.wnacg.com/photos-index-aid-*.html
+// @match        http*://*.wnacg.org/photos-index-aid-*.html
 // @grant 	     GM.xmlHttpRequest
 // @grant 	     GM_download
 // ==/UserScript==
@@ -509,7 +511,7 @@ $.ajax(btn.attr('href')).done( data => {
         event.stopPropagation();
         event.preventDefault();
         console.log(`start downloading ${link} as ${title}.zip, it might take a while...`)
-      	GM_download(link, `${title}.zip`)
+      	GM_download(link, `${title.replace(/:/g,'')}.zip`) // replace ':' to avoid error
         return false
     })
 });
