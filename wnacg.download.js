@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    yrWnacg
-// @version      2.3
+// @version      2.4
 // @description  Enhanced download of wnacg
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @author       Toudaimori
@@ -506,7 +506,7 @@ const btn = $(element);
 $('.asTBcell.uwthumb').append(btn);
 
 $.ajax(btn.attr('href')).done( data => {
-    const link = $('.down_btn', $(data)).attr('href')
+    const link = 'http:' + $('.down_btn', $(data)).attr('href')
     btn.on('click', event => {
         event.stopPropagation();
         event.preventDefault();
