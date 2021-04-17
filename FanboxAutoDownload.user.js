@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         FanboxAutoDownload
 // @namespace    Yr
-// @version      1.0
+// @version      1.1
 // @description  Download all pictures in pixiv fanbox
 // @author       Toudaimori
 // @require      https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.js
@@ -64,7 +64,7 @@ async function downloadWrapper(metaData)
 async function Run(callback)
 {
     window.scrollTo(0,document.body.scrollHeight);
-    const title = document.querySelector('.sc-1vjtieq-10.bhchCq').textContent
+    const title = document.querySelector('.sc-1vjtieq-8').textContent
     const imgs = [...document.querySelectorAll('.gcZCGE')].map(x => x.href)
     const metaData = [title, imgs]
     await downloadWrapper(metaData)
