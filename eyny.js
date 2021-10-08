@@ -5,7 +5,7 @@
 // @include     http://*.eyny.com/
 // @include     https://*.eyny.com/index.php
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
-// @version     2.4
+// @version     2.5
 // @grant       none
 // @description Simple Enhanced Feature of eyny.com
 // ==/UserScript==
@@ -859,7 +859,7 @@ function ByPassR18Authentication()
 
 function ReplaceElement(element, fid) {
     if(!exclude.includes(fid)){
-        element.href = `https://yrwww${seed}.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`
+        element.href = `https://www.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`
     }
 }
 
@@ -877,7 +877,7 @@ async function Main()
     const type2Regex = /(.*)forum.php\?mod=forumdisplay&fid=([0-9]+)/
     const regexPattern = /forum((-.)|(\.php\?((view=all)|(mod=forumdisplay\&fid))))/
     const hrefs = [...document.getElementsByTagName('a')].filter(x => x.href && x.href.match(regexPattern))
-    const forumIDStatic = await GetForumID(false)
+    const forumIDStatic = await GetForumID(true)
 
     hrefs.map(element => {
         if (element.href.slice(-5) === '.html'){ // type1
