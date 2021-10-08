@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    yrWnacg
-// @version      2.4
+// @version      2.5
 // @description  Enhanced download of wnacg
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @author       Toudaimori
@@ -506,12 +506,13 @@ const btn = $(element);
 $('.asTBcell.uwthumb').append(btn);
 
 $.ajax(btn.attr('href')).done( data => {
-    const link = 'http:' + $('.down_btn', $(data)).attr('href')
+    const matches = data.match(/a class="down_btn" href="\/\/(.*)\?n=.*"/)
+    const link = 'http://' + matches[1]
     btn.on('click', event => {
         event.stopPropagation();
         event.preventDefault();
         console.log(`start downloading ${link} as ${title}.zip, it might take a while...`)
-      	GM_download(link, `${title.replace(/:/g,'')}.zip`) // replace ':' to avoid error
+        GM_download(link, `${title.replace(/:/g,'')}.zip`) // replace ':' to avoid error
         return false
     })
 });
