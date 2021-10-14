@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    yrWnacg
-// @version      2.6
+// @version      2.7
 // @description  Enhanced download of wnacg
 // @author       Toudaimori
 // @match        http*://*.wnacg.com/photos-index-page-*.html
@@ -24,7 +24,7 @@ async function ParseDownloadLink(target)
 {
     const resp = await fetch(target);
     const result = await resp.text();
-    const matches = result.match(/a class="down_btn" href="\/\/(.*)"/);
+    const matches = result.match(/href="\/\/(.*wnacg\.download.*)"/);
     const rawLink = 'http://' + matches[1];
     return new URL(rawLink).href;
 }
