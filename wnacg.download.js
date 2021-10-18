@@ -22,6 +22,8 @@ const successCountLimit = 3; // How many continous success checks required to st
 const closeTabInterval = -1; // set to -1 to avoid auto close new opened tabs
 const closeWindowInterval = -1; // set to -1 to avoid auto close current window
 
+const protocol = location.protocol
+
 // Modified from https://gist.github.com/WebReflection/df05641bd04954f6d366
 // with predefined object specific, for HTML entities only
 function _Unescape(s) {
@@ -49,7 +51,7 @@ async function FetchTarget()
     const resp = await fetch(location.href);
     const result = await resp.text();
     const match = result.match(/href=\"(\/download-index-aid-.*)"/);
-    return 'https://wnacg.org' + match[1];
+    return `${protocol}//wnacg.org` + match[1];
 }
 
 async function ParseDownloadLink(target)
@@ -57,7 +59,7 @@ async function ParseDownloadLink(target)
     const resp = await fetch(target);
     const result = await resp.text();
     const matches = result.match(/href="\/\/(.*wnacg\.download.*)"/);
-    const rawLink = 'http://' + _Unescape(matches[1]); // fixs download re-naming of server behaviour
+    const rawLink = `${protocol}//` + _Unescape(matches[1]); // fixs download re-naming of server behaviour
     return new URL(rawLink).href;
 }
 
