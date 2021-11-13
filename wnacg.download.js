@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    yrWnacg
-// @version      2.8
+// @version      2.9
 // @description  Enhanced download of wnacg
 // @author       Toudaimori
 // @match        http*://*.wnacg.com/photos-index-page-*.html
@@ -46,18 +46,40 @@ function _Unescape(s) {
   });
 }
 
+async function _Fetch(url)
+{
+    return new Promise((resolve, reject) => {
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: url,
+            headers: { // Without header it return 200 and seldom return 503 even if service is not availiable
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Accept-Language": "zh-TW,zh;q=0.8,en-US;q=0.5,en;q=0.3",
+                "Upgrade-Insecure-Requests": "1",
+                "Pragma": "no-cache",
+                "Cache-Control": "no-cache"
+            },
+            onload: function(response) {
+                resolve(response.responseText)
+            },
+            onerror: function(error) {
+                reject(error)
+            }
+        })
+    })
+}
+
 async function FetchTarget()
 {
-    const resp = await fetch(location.href);
-    const result = await resp.text();
+    const result = await _Fetch(location.href);
     const match = result.match(/href=\"(\/download-index-aid-.*)"/);
     return `${protocol}//wnacg.org` + match[1];
 }
 
 async function ParseDownloadLink(target)
 {
-    const resp = await fetch(target);
-    const result = await resp.text();
+    const result = await _Fetch(target);
     const matches = result.match(/href="\/\/(.*wnacg\.download.*)"/);
     const rawLink = `${protocol}//` + _Unescape(matches[1]); // fixs download re-naming of server behaviour
     return new URL(rawLink).href;
@@ -83,6 +105,7 @@ async function DisplayDownloading(event)
     let successCount = 0;
 
     const Download = (onSuccessCallback, onFailCallback) => {
+        // TODO: shoud refactor to call _Fetch later
         GM_xmlhttpRequest({
             method: "HEAD",
             url: url,
