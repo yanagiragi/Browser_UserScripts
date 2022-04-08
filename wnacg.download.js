@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    yrWnacg
-// @version      2.9.1
+// @version      2.9.2
 // @description  Enhanced download of wnacg
 // @author       Toudaimori
 // @match        http*://*.wnacg.com/photos-index-page-*.html
@@ -80,7 +80,7 @@ async function FetchTarget()
 async function ParseDownloadLink(target)
 {
     const result = await _Fetch(target);
-    const matches = result.match(/down_btn ads" href="(.*)" target="_blank"/);
+    const matches = result.match(/down_btn ads" href="(.*?)">/);
     const rawLink = `${protocol}//` + _Unescape(matches[1]); // fixs download re-naming of server behaviour
     return new URL(rawLink).href;
 }
