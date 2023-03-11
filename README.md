@@ -150,3 +150,11 @@ Features:
 * 快速複製 標題, 社團, 網址
 
 ![](https://i.imgur.com/2NbbyfE.gif)
+
+### [Google Maps](https://github.com/yanagiragi/Browser_UserScripts/raw/master/CopyGoogleMapShopInfo.user.js)
+
+功能:
+
+* 快速複製 店家名稱, 地圖連結, 營業時間
+
+![](https://i.imgur.com/zAJ9MCq.jpg)
