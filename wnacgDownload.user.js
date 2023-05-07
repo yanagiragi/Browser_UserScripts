@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    yrWnacg
-// @version      3.0.0
+// @version      3.0.1
 // @description  Enhanced download of wnacg
 // @author       Toudaimori
 // @require      https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.js
@@ -57,7 +57,7 @@ async function _Fetch(url) {
             method: "GET",
             url: url,
             headers: { // Without header it return 200 and seldom return 503 even if service is not availiable
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0",
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
                 "Accept-Language": "zh-TW,zh;q=0.8,en-US;q=0.5,en;q=0.3",
                 "Upgrade-Insecure-Requests": "1",
@@ -98,8 +98,8 @@ async function ParseDownloadPageLink(url) {
 }
 
 async function ParseDownloadLink(target) {
-    const result = await _Fetch(target);
-    const matches = result.match(/down_btn ads" href="(.*?)">/);
+    const result = await _Fetch(target.replace('wnacg.org', location.hostname));
+    const matches = result.match(/down_btn ads\" href="(.*?)">/);
     const rawLink = `${location.protocol}//` + _Unescape(matches[1]); // fixs download re-naming of server behaviour
     return new URL(rawLink).href;
 }
