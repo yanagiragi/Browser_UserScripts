@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    yrWnacg
-// @version      3.0.1
+// @version      3.0.2
 // @description  Enhanced download of wnacg
 // @author       Toudaimori
 // @require      https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.js
@@ -303,7 +303,7 @@ async function DownloadImages(event) {
     const imageSrcs = []
     for (let i = 1; i <= pageCount; ++i) {
         parsingPageId.textContent = `第 ${i} 頁`
-        const url = `https://wnacg.org/photos-index-page-${i}-aid-${pageId}.html`
+        const url = `https://wnacg.com/photos-index-page-${i}-aid-${pageId}.html`
         const links = await FetchImageLinks(url)
         const tasks = links.map(x => FetchImageSrc(x))
         const srcs = await Promise.all(tasks)
