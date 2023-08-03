@@ -3,7 +3,7 @@
 // @namespace    Yr
 // @version      1.0
 // @description  Auto open link in new tab, worked with FanboxAutoDownload
-// @author       Toudaimori
+// @author       yanagiragi
 // @match        https://*.fanbox.cc/
 // @icon         https://www.google.com/s2/favicons?domain=fanbox.cc
 // @grant        none
@@ -14,7 +14,7 @@ let interval;
 const scrollCheckTimeout = 3;
 const checkInterval = scrollCheckTimeout + 30;
 
-(function() {
+(function () {
     'use strict';
     interval = setInterval(Update, 1000 * checkInterval);
     Update();
@@ -23,7 +23,7 @@ const checkInterval = scrollCheckTimeout + 30;
 function Cancel() { clearInterval(interval); }
 
 function Update() {
-    window.scrollTo(0,document.body.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight);
 
     // wait for ajax to work
     setTimeout(() => {

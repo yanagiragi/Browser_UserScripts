@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         MelonBooks_Enhanced
-// @namespace    yrMelonBooks
+// @namespace    Yr
 // @version      2.0
 // @description  Add clipboard feature to simple copy infos of current page
-// @author       Yanagiragi
+// @author       yanagiragi
 // @match        https://www.melonbooks.co.jp/detail/detail.php?product_id=*
 // @grant        GM_setClipboard
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     // https://stackoverflow.com/a/5877034
@@ -25,8 +25,8 @@
     // setup copy to clipboard
     const copyBtn = document.createElement("button")
     copyBtn.addEventListener('click', event => {
-        if(title && circle)
-            GM_setClipboard (`${circle.innerHTML} - ${title.innerHTML}\n${location.href}\n`)
+        if (title && circle)
+            GM_setClipboard(`${circle.innerHTML} - ${title.innerHTML}\n${location.href}\n`)
     })
 
     const copyText = document.createTextNode("Copy To Clipboard")
@@ -37,7 +37,7 @@
     const toranoanaLink = document.createElement("a")
     const toranoanaBtn = document.createElement("button")
     toranoanaBtn.addEventListener('click', event => {
-        if(title){
+        if (title) {
             const toranoanaUrl = `https://ec.toranoana.jp/tora_r/ec/app/catalog/list/?searchWord=${title.innerHTML}&searchBackorderFlg=0&searchUsedItemFlg=1&searchDisplay=0&detailSearch=true`
             const win = window.open(toranoanaUrl, '_blank');
             win.focus();
@@ -51,7 +51,7 @@
     const manadarakeLink = document.createElement("a")
     const manadarakeBtn = document.createElement("button")
     manadarakeBtn.addEventListener('click', event => {
-        if(title){
+        if (title) {
             const manadarakeUrl = `https://order.mandarake.co.jp/order/listPage/list?keyword=${title.innerHTML}`
             const win = window.open(manadarakeUrl, '_blank');
             win.focus();

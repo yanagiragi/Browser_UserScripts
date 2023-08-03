@@ -3,7 +3,7 @@
 // @namespace    Yr
 // @version      1.0
 // @description  Remove annoying signatures in ptt
-// @author       Yr
+// @author       yanagiragi
 // @match        https://www.ptt.cc/bbs/*/*.html
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=ptt.cc
 // @grant        none

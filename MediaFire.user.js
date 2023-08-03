@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        MediaFire
-// @namespace   yanagiragi
+// @namespace   Yr
 // @include     http://www.mediafire.com/file/*
 // @include     https://www.mediafire.com/file/*
 // @version     2.0
@@ -9,7 +9,7 @@
 // if error occurs with closing windows, try config firefox by accessing about:config
 var set;
 
-(function() {
+(function () {
     'use strict';
     var dl = document.querySelector('.download_link .input').getAttribute('href');
     console.log(dl)
@@ -17,7 +17,7 @@ var set;
     set = setInterval(closeWindows, 1000 * 5);
 })();
 
-function closeWindows(){
+function closeWindows() {
     window.close();
     clearInterval(set);
 }

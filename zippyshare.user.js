@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        ZippyShare
-// @namespace   yanagiragi
+// @namespace   Yr
 // @include     http://*.zippyshare.com/v/*/file.html
 // @include     https://*.zippyshare.com/v/*/file.html
 // @version     1
@@ -9,7 +9,7 @@
 // if error occurs with closing windows, try config firefox by accessing about:config
 var set;
 
-(function() {
+(function () {
     'use strict';
     var dl = document.getElementById('dlbutton');
     dl = dl.getAttribute('href');
@@ -17,7 +17,7 @@ var set;
     set = setInterval(closeWindows, 1000 * 3);
 })();
 
-function closeWindows(){
+function closeWindows() {
     window.close();
     clearInterval(set);
 }

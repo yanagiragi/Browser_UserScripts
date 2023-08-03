@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        eyny-img
-// @namespace   yanagiragi
+// @namespace   Yr
 // @include     http://*.eyny.com/thread*
 // @include     http://*.eyny.com/forum.php?mod=viewthread&tid=*
 // @include     http://*.eyny.com/forum.php?mod=forumdisplay&fid*

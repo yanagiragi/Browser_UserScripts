@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         wnacgDownload
-// @namespace    yrWnacg
+// @namespace    Yr
 // @version      3.0.2
 // @description  Enhanced download of wnacg
-// @author       Toudaimori
+// @author       yanagiragi
 // @require      https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.js
 // @require      https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js
 // @match        http*://*.wnacg.com/photos-index-page-*.html

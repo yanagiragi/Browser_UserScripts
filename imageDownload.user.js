@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        imageDownload
-// @namespace   yanagiimageDownload
+// @namespace   Yr
 // @include     http://*.jpg
 // @include     https://*.jpg
 // @include     http://*.jpeg
@@ -17,12 +17,12 @@
 var autoClose = true;
 
 // Main Code
-function closeWindows(){
+function closeWindows() {
     window.close();
     clearInterval(set);
 }
 
-(function() {
+(function () {
     'use strict';
     var filename = location.pathname.substr(location.pathname.lastIndexOf('/') + 1);
     var mime = filename.substr(filename.lastIndexOf('.') + 1);
@@ -36,6 +36,6 @@ function closeWindows(){
 
     downloadLink.click();
 
-    if(autoClose)
-       set = setInterval(closeWindows, 1000 * 3);
+    if (autoClose)
+        set = setInterval(closeWindows, 1000 * 3);
 })();

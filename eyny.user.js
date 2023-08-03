@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Eyny
-// @namespace   yanagiragi
+// @namespace   Yr
 // @include     http://*.eyny.com/index.php
 // @include     http://*.eyny.com/
 // @include     https://*.eyny.com/index.php
@@ -22,8 +22,7 @@ const exclude = ['22']
 const $ = jQuery.noConflict(true);
 const seed = Math.floor(Math.random() * 1000 + 1000)
 
-async function GetForumIDDynamic()
-{
+async function GetForumIDDynamic() {
     const container = {}
     function getData(ajaxurl) {
         return $.ajax({
@@ -35,11 +34,11 @@ async function GetForumIDDynamic()
     const res = await getData('http://www10.eyny.com/forum.php?view=all')
     const linkEntries = Object.values($('[href]', $.parseHTML(res)))
 
-    for(let i = 0; i < linkEntries.length; ++i){
+    for (let i = 0; i < linkEntries.length; ++i) {
         if (typeof linkEntries[i] == 'undefined' || typeof linkEntries[i].href == 'undefined') { continue }
         const href = linkEntries[i].href
         const html = linkEntries[i].innerHTML
-        if(href.match(/forum((-.)|(\.php\?((view=all)|(mod=forumdisplay\&fid))))/)) {
+        if (href.match(/forum((-.)|(\.php\?((view=all)|(mod=forumdisplay\&fid))))/)) {
             container[html] = href
         }
     }
@@ -50,8 +49,7 @@ async function GetForumIDDynamic()
 }
 
 // hard coded forumID, because ajax is slow!
-function GetForumIDStatic()
-{
+function GetForumIDStatic() {
     return {
         "時事": "1724",
         "生活": "68",
@@ -847,29 +845,27 @@ function GetForumIDStatic()
     }
 }
 
-function GetForumID(useStatic=true){
- 	return useStatic ? GetForumIDStatic() : GetForumIDDynamic()
+function GetForumID(useStatic = true) {
+    return useStatic ? GetForumIDStatic() : GetForumIDDynamic()
 }
 
-function ByPassR18Authentication()
-{   
-  	const cookiePrefix = document.cookie.split(';').filter(x => x.includes('lastvisit='))[0].match(/(.*)_lastvisit/)[1]
+function ByPassR18Authentication() {
+    const cookiePrefix = document.cookie.split(';').filter(x => x.includes('lastvisit='))[0].match(/(.*)_lastvisit/)[1]
     document.cookie = `${cookiePrefix}_agree=999;expires=Thu, 30 May 2099 16:26:30 GMT; Domain=.eyny.com`
 }
 
 function ReplaceElement(element, fid) {
-    if(!exclude.includes(fid)){
+    if (!exclude.includes(fid)) {
         element.href = `https://www.eyny.com/forum.php?mod=forumdisplay&fid=${fid}&filter=author&orderby=dateline`
     }
 }
 
-async function Main()
-{
+async function Main() {
     ByPassR18Authentication()
 
     // get rid of announcement since it may contain link to specific forum
-    $('#hd').siblings()[2].innerHTML = "" 
-      
+    $('#hd').siblings()[2].innerHTML = ""
+
     // type1: forum-3522-1.html
     // type2: forum.php?mod=forumdisplay&fid=1831
     // type3: forum.php?view=all
@@ -880,12 +876,12 @@ async function Main()
     const forumIDStatic = await GetForumID(true)
 
     hrefs.map(element => {
-        if (element.href.slice(-5) === '.html'){ // type1
+        if (element.href.slice(-5) === '.html') { // type1
             const fid = element.href.match(type1Regex)[2]
             ReplaceElement(element, fid)
-        }        
-        else if(element.href.slice(-18) === 'forum.php?view=all') { // type 3
-            if (element.text in forumIDStatic){
+        }
+        else if (element.href.slice(-18) === 'forum.php?view=all') { // type 3
+            if (element.text in forumIDStatic) {
                 const fid = forumIDStatic[element.text]
                 ReplaceElement(element, fid)
             }
@@ -894,7 +890,7 @@ async function Main()
             const fid = element.href.match(type2Regex)[2]
             ReplaceElement(element, fid)
         }
-    })    
+    })
 }
 
 Main()

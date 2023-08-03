@@ -2,10 +2,10 @@
 
 // ==UserScript==
 // @name         Eyny_OrderByDate
-// @namespace    http://tampermonkey.net/
+// @namespace    Yr
 // @version      0.1
 // @description  try to take over the world!
-// @author       You
+// @author       yanagiragi
 // @match        http://*.eyny.com/forum-*.html
 // @match        http://*.eyny.com/forum.php*
 // @grant        none
@@ -29,32 +29,32 @@ function getQueryVariable(variable) {
     return null;
 }
 
-function sortByDate_php(){
+function sortByDate_php() {
     var id = getQueryVariable('fid');
     console.log(id);
 
     let skip = getQueryVariable('orderby');
     let view = getQueryVariable('view');
     let mod = getQueryVariable('mod');
-    if(skip != null || view == 'all' || mod == 'viewthread')
+    if (skip != null || view == 'all' || mod == 'viewthread')
         return;
 
-    if(exclude.indexOf(id) < 0){
+    if (exclude.indexOf(id) < 0) {
         var postfix = location + '&filter=author&orderby=dateline';
-        location.replace(postfix);    
+        location.replace(postfix);
     }
-    
-    
+
+
 }
 
-function sortByDate_html(){
+function sortByDate_html() {
     var loc = location.hostname.toString();     // domain
     var path = location.pathname;
-    
+
     var id = path.substr(7, path.length);
     id = id.substr(0, id.indexOf('-'));
-    
-    if(exclude.indexOf(id) < 0){
+
+    if (exclude.indexOf(id) < 0) {
         console.log('ready to sort');
         var postfix = 'forum.php?mod=forumdisplay&fid=' + id + '&filter=author&orderby=dateline';
         location.replace(postfix);
@@ -63,9 +63,9 @@ function sortByDate_html(){
 
 var exclude = ['22'];
 
-(function() {
+(function () {
     'use strict';
-    if(location.pathname == "/forum.php")
+    if (location.pathname == "/forum.php")
         sortByDate_php();
     else
         sortByDate_html();

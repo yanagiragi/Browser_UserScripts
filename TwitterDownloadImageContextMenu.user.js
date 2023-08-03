@@ -3,19 +3,19 @@
 // @namespace    Yr
 // @version      1.0
 // @description  Context menu to download original size at Twitter status
-// @author       Toudaimori
+// @author       yanagiragi
 // @match        https://twitter.com/*/status/*
 // @grant        GM_download
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     var clickedEvent = null;
 
     var menu = document.createElement("div");
-    menu.id="contextmenu";
-    menu.className="hidden";
+    menu.id = "contextmenu";
+    menu.className = "hidden";
 
     var option1 = document.createElement("div");
     option1.classList.add("yrOptions");
@@ -52,12 +52,12 @@
     background-color: cadetblue;
 }`)
 
-        addGlobalStyle(`
+    addGlobalStyle(`
 .show{
     display:block;
 }`)
 
-        addGlobalStyle(`
+    addGlobalStyle(`
 .hidden{
     display:none;
 }`)
@@ -68,28 +68,26 @@
         console.log("Hooked");
     }, 1000 * 5)
 
-    function Setup()
-    {
+    function Setup() {
         const images = [...document.querySelectorAll('a[role=link][href*=status] img')]
         images.map(x => {
-            bindEvent(x , "contextmenu" , closeContextMenu);
-            bindEvent(x , "mouseup" , openNewContextMenu);
-            bindEvent(x , "mousedown" , closeNewContextMenu);
+            bindEvent(x, "contextmenu", closeContextMenu);
+            bindEvent(x, "mouseup", openNewContextMenu);
+            bindEvent(x, "mousedown", closeNewContextMenu);
 
             let parent = x
-            while(parent.tagName !== "A") {
+            while (parent.tagName !== "A") {
                 parent = parent.parentElement;
             }
             parent.setAttribute("oncontextmenu", "return false");
-            bindEvent(document , "contextmenu" , (event) => {
+            bindEvent(document, "contextmenu", (event) => {
                 console.log(event.target);
                 return event.target.id !== "contextmenu"
             });
         })
     }
 
-    function ClickDownloadOption(event)
-    {
+    function ClickDownloadOption(event) {
         let src = new URL(clickedEvent.target.src);
         let type = src.search.substring("?format=".length, src.search.indexOf("&"))
         let filename = src.pathname.substring("/media/".length)
@@ -99,20 +97,19 @@
         closeNewContextMenu();
     }
 
-    function ClickTurnOffOption(event)
-    {
+    function ClickTurnOffOption(event) {
         console.log("Turned Off");
         closeNewContextMenu();
         bindEvent(clickedEvent.target, "contextmenu", () => true);
-        bindEvent(clickedEvent.target, "mouseup" , () => true);
-        bindEvent(clickedEvent.target, "mousedown" , () => true);
+        bindEvent(clickedEvent.target, "mouseup", () => true);
+        bindEvent(clickedEvent.target, "mousedown", () => true);
     }
 
-    function closeContextMenu(){
+    function closeContextMenu() {
         return false;
     }
 
-    function openNewContextMenu( ev ){
+    function openNewContextMenu(ev) {
         ev.preventDefault()
 
         ev = ev || window.event;
@@ -121,27 +118,27 @@
         clickedEvent = ev;
 
         var btn = ev.button;
-        if( btn == 2){
-            menu.style.left = ev.clientX +"px";
-            menu.style.top = ev.clientY +"px";
+        if (btn == 2) {
+            menu.style.left = ev.clientX + "px";
+            menu.style.top = ev.clientY + "px";
             menu.className = "show";
         }
 
         return false;
     }
 
-    function closeNewContextMenu( ev ){
+    function closeNewContextMenu(ev) {
         menu.className = "hidden";
     }
 
-    function bindEvent(elem , eventType , callback){
-        var ieType = ["on" + eventType ];
-        if( ieType in elem ){
-            elem[ ieType ] = callback;
-        }else if("attachEvent" in elem){
-            elem.attachEvent(ieType ,callback);
-        }else{
-            elem.addEventListener(eventType ,callback , false);
+    function bindEvent(elem, eventType, callback) {
+        var ieType = ["on" + eventType];
+        if (ieType in elem) {
+            elem[ieType] = callback;
+        } else if ("attachEvent" in elem) {
+            elem.attachEvent(ieType, callback);
+        } else {
+            elem.addEventListener(eventType, callback, false);
         }
     }
 

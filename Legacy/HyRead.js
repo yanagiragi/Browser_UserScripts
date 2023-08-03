@@ -3,7 +3,7 @@
 // @namespace    Yr
 // @version      1.0
 // @description  Download hyread ebook
-// @author       toudaimori
+// @author       yanagiragi
 // @match        https://service.ebook.hyread.com.tw/ebookservice/epubreader/hyread/v3/reader.jsp
 // @require  https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js
 // @require  https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.js
@@ -13,12 +13,11 @@
 
 var container = []
 
-async function Download(event)
-{
+async function Download(event) {
     event.stopPropagation()
 
     const realContainer = []
-    for(let i = 0; i < container.length; ++i){
+    for (let i = 0; i < container.length; ++i) {
         console.log(i, container[i])
         realContainer.push(await getImageBase64(i, container[i]))
     }
@@ -26,28 +25,27 @@ async function Download(event)
     Compress('Download', realContainer)
 }
 
-function Compress(title, pics)
-{
+function Compress(title, pics) {
     return new Promise((resolve, reject) => {
         console.log(`Start Compress`)
         const zip = new JSZip()
         const folder = zip.folder(`${title}`);
-        for(let i = 0; i < pics.length; ++i){
-            folder.file(`${pics[i].index}.jpg`, pics[i].base64, {base64: true})
+        for (let i = 0; i < pics.length; ++i) {
+            folder.file(`${pics[i].index}.jpg`, pics[i].base64, { base64: true })
         }
 
-        zip.generateAsync({type:"blob", streamFiles: true}, metadata => {
+        zip.generateAsync({ type: "blob", streamFiles: true }, metadata => {
             console.log(`Compress Progress = ${metadata.percent} %`)
         })
-        .then((content) => {
-            // see FileSaver.js
-            console.log(`All Done, Save to ${title}.zip`);
-            resolve(saveAs(content, `${title}.zip`))
-        });
+            .then((content) => {
+                // see FileSaver.js
+                console.log(`All Done, Save to ${title}.zip`);
+                resolve(saveAs(content, `${title}.zip`))
+            });
     })
 }
 
-async function processSinglePage(){
+async function processSinglePage() {
     const pages = [...document.querySelectorAll('.hyr-hejview__content')].map(x => x.style['background-image'])
     pages.filter(x => x.match(/(blob.*)\"/)).map(x => container.push(x.match(/(blob.*)\"/)[1]))
 
@@ -55,8 +53,7 @@ async function processSinglePage(){
     document.title = `HyRead (${container.length})`
 }
 
-function getImageBase64(index, path)
-{
+function getImageBase64(index, path) {
     return new Promise((resolve, reject) => {
         const extension = path.substring(path.lastIndexOf('.') + 1)
         GM.xmlHttpRequest({
@@ -67,7 +64,7 @@ function getImageBase64(index, path)
                 let binary = "";
                 const responseText = response.responseText;
                 const responseTextLen = responseText.length;
-                for ( let i = 0; i < responseTextLen; i++ ) {
+                for (let i = 0; i < responseTextLen; i++) {
                     binary += String.fromCharCode(responseText.charCodeAt(i) & 255)
                 }
 
@@ -75,7 +72,7 @@ function getImageBase64(index, path)
                 let src = btoa(binary)
 
                 console.log(`Downloaded: ${index}.${extension}, src=${path}`)
-                resolve({'index': index, 'base64': src, 'extension': extension })
+                resolve({ 'index': index, 'base64': src, 'extension': extension })
             }
         })
     })

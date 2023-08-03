@@ -3,13 +3,13 @@
 // @namespace    Yr
 // @version      1.0
 // @description  Copy BibTex citation on google scholar
-// @author       Toudaimori
+// @author       yanagiragi
 // @match        https://scholar.google.com/scholar?*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
     const citeBtns = [...document.querySelectorAll('.gs_or_svg')];
     const handler = (event) => {
@@ -25,7 +25,7 @@
                 GM_xmlhttpRequest({
                     method: "GET",
                     url: href,
-                    onload: function(response) {
+                    onload: function (response) {
                         x.onclick = (event) => {
                             GM_setClipboard(response.responseText, "text");
                             console.log(response.responseText);
@@ -42,7 +42,7 @@
 
     citeBtns.map(x => {
         x.onclick = () => {
-         setTimeout(handler, 100);
+            setTimeout(handler, 100);
         }
     });
 })();
