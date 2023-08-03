@@ -2,28 +2,6 @@
 
 Self use plugins runs with TamperMonkey in Mozilla Firefox
 
-## Contents
-
-1. [Eyny 伊莉討論區](#Eyny_伊莉討論區)
-
-2. [Eyny_伊莉討論區_圖片隱藏](#Eyny_伊莉討論區_圖片隱藏)
-
-3. [Zippyshare_自動下載](#Zippyshare_自動下載)
-
-4. [MediaFire_自動下載](#MediaFire_自動下載)
-
-5. [Google-Hestia](#Google-Hestia)
-
-6. [軸中心派](#軸中心派)
-
-7. [FB 大大<(_ _)> 快速鍵](#PraiseP2p)
-
-8. [紳士漫畫 快速下載](#Wnacg_Download)
-
-9. [MelonBooks_快速複製](#Melonbooks)
-
----
-
 ## [Eyny_伊莉討論區](https://greasyfork.org/zh-TW/scripts/27675-eyny)
 
 功能:
@@ -101,38 +79,6 @@ Features:
 
 * 我要一輩子追隨這位王
 
---- 
-
-### [軸中心派](https://greasyfork.org/zh-TW/scripts/369293-jiku-chu-products)
-
-功能:
-
-* 自動轉換網址，也就是說可以用 滑鼠中鍵 批量開啟分頁
-
-Features:
-
-* Change links automatically, making it possible to open tabs with wheel
-
-* Before: Javascript:void(0)
-
-    ![](https://i.imgur.com/UYIl1oO.jpg)
-
-* After: https://www.jiku-chu.com/products/detail.php?product_id=[0-9]*
-
-    ![](https://i.imgur.com/n5L2UmY.jpg)
-
----
-
-### PraiseP2p
-
-功能:
-
-* 在 Facebook 訊息窗中一鍵 (F2) 按出 "大大 <(_ _)>"
-
-* 目前沒有做完，所以可能要先隨便打一個字讓 React 生出那個 dom 才有辦法work
-
-* 目前開啟網頁後五秒才會生效
-
 ---
 
 ### [Wnacg_Download](https://greasyfork.org/zh-TW/scripts/386909-wnacgdownload)
@@ -158,3 +104,11 @@ Features:
 * 快速複製 店家名稱, 地圖連結, 營業時間
 
 ![](https://i.imgur.com/zAJ9MCq.jpg)
+
+### [Dump Twitter](https://github.com/yanagiragi/Browser_UserScripts/raw/master/DumpTwitterFollower.user.js)
+
+功能:
+
+* 下載自己的 follwer & 列表
+
+![](https://imgur.com/IlwCovL.jpg)
