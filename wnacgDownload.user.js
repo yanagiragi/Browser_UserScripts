@@ -31,7 +31,7 @@ const closeWindowInterval = -1; // set to -1 to avoid auto close current window
 
 // Modified from https://gist.github.com/WebReflection/df05641bd04954f6d366
 // with predefined object specific, for HTML entities only
-function _Unescape(s) {
+function _Unescape (s) {
     var re = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34);/g;
     var unescaped = {
         '&amp;': '&',
@@ -51,7 +51,7 @@ function _Unescape(s) {
     });
 }
 
-async function _Fetch(url) {
+async function _Fetch (url) {
     return new Promise((resolve, reject) => {
         GM_xmlhttpRequest({
             method: "GET",
@@ -74,7 +74,7 @@ async function _Fetch(url) {
     })
 }
 
-function _PromissAll(promises, progressCallback) {
+function _PromissAll (promises, progressCallback) {
     let count = 0;
     progressCallback(0);
     for (const p of promises) {
@@ -91,26 +91,26 @@ function _PromissAll(promises, progressCallback) {
 //               Direct Download Methods
 // =====================================================
 
-async function ParseDownloadPageLink(url) {
+async function ParseDownloadPageLink (url) {
     const result = await _Fetch(url);
     const match = result.match(/href=\"(\/download-index-aid-.*)"/);
     return `${location.protocol}//wnacg.org` + match[1];
 }
 
-async function ParseDownloadLink(target) {
+async function ParseDownloadLink (target) {
     const result = await _Fetch(target.replace('wnacg.org', location.hostname));
     const matches = result.match(/down_btn ads\" href="(.*?)">/);
     const rawLink = `${location.protocol}//` + _Unescape(matches[1]); // fixs download re-naming of server behaviour
     return new URL(rawLink).href;
 }
 
-function GetCategory() {
+function GetCategory () {
     let raw = document.querySelector('.asTBcell.uwconn label').textContent
     raw = raw.replace(/分類：/, '').replace(/ /g, '').replace(/\//g, '')
     return encodeURIComponent(raw)
 }
 
-async function DirectDownload(event) {
+async function DirectDownload (event) {
     event.preventDefault();
 
     const btn = document.querySelector('#YrDownloadBtn');
@@ -209,7 +209,7 @@ async function DirectDownload(event) {
 //               Download Image Methods
 // =====================================================
 
-function GetImageBase64(index, url) {
+function GetImageBase64 (index, url) {
     return new Promise((resolve, reject) => {
         const extension = url.substring(url.lastIndexOf('.') + 1)
         GM_xmlhttpRequest({
@@ -234,7 +234,7 @@ function GetImageBase64(index, url) {
     })
 }
 
-async function Compress(title, pics, progressCallback = null) {
+async function Compress (title, pics, progressCallback = null) {
     console.log(`Start Compress`)
     const zip = new JSZip();
     const folder = zip.folder(title);
@@ -249,7 +249,7 @@ async function Compress(title, pics, progressCallback = null) {
     return saveAs(content, `${title}.zip`);
 }
 
-async function FetchImageLinks(url) {
+async function FetchImageLinks (url) {
     const resp = await _Fetch(url)
     const dom = new DOMParser().parseFromString(resp, 'text/html')
     const blocks = dom.querySelectorAll('.gallary_item')
@@ -261,14 +261,14 @@ async function FetchImageLinks(url) {
     return result
 }
 
-async function FetchImageSrc(url) {
+async function FetchImageSrc (url) {
     const resp = await _Fetch(url)
     const dom = new DOMParser().parseFromString(resp, 'text/html')
     const img = dom.querySelector('#photo_body img')
     return img.src
 }
 
-function GetPageCount() {
+function GetPageCount () {
     const paginators = [...document.querySelectorAll('.f_left.paginator a')]
     if (paginators.length == 0) {
         // cases: current book has only one page
@@ -278,7 +278,7 @@ function GetPageCount() {
     return parseInt(href.substring(href.indexOf('photos-index-page-') + 'photos-index-page-'.length, href.indexOf('-aid-')))
 }
 
-function GetPageId() {
+function GetPageId () {
     // two formats:
     // https://wnacg.org/photos-index-aid-xxxxx.html
     // https://wnacg.org/photos-index-page-1-aid-xxxxx.html
@@ -286,7 +286,7 @@ function GetPageId() {
     return location.href.substring(location.href.indexOf('-aid-') + '-aid-'.length, location.href.indexOf('.html'))
 }
 
-async function DownloadImages(event) {
+async function DownloadImages (event) {
     event.preventDefault();
 
     const block = document.querySelector('#YrDownloadImageStatusBlock');
@@ -330,7 +330,7 @@ async function DownloadImages(event) {
 //                 General Setups
 // =====================================================
 
-async function SetupDirectDownloadButton() {
+async function SetupDirectDownloadButton () {
     const category = GetCategory();
     const downloadPageLink = await ParseDownloadPageLink(location.href);
     let downloadLink = await ParseDownloadLink(downloadPageLink);
@@ -355,7 +355,7 @@ async function SetupDirectDownloadButton() {
     downloadZipBtn.addEventListener('click', DirectDownload);
 }
 
-async function SetupDownloadImageButton() {
+async function SetupDownloadImageButton () {
     // setup DOMs
     const downloadImageBtnElement = `<a id="YrDownloadImageBtn" class="btn" style="width:130px;" target="_blank" rel="noreferrer noopener" href=#>直接下載 (網站圖片)</a>`;
     const statusElement = `
@@ -371,7 +371,7 @@ async function SetupDownloadImageButton() {
     downloadImageBtn.addEventListener('click', DownloadImages);
 }
 
-async function Run() {
+async function Run () {
     await SetupDirectDownloadButton();
     await SetupDownloadImageButton();
 }
