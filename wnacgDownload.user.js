@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    Yr
-// @version      3.0.2
+// @version      3.0.3
 // @description  Enhanced download of wnacg
 // @author       yanagiragi
 // @require      https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.js
@@ -21,7 +21,7 @@
 const waitingStr = `排隊中`;
 const downloadStr = `已下載`;
 const timeout = 1000; // time interval between retry
-const successCountLimit = 3; // How many continous success checks required to start download, set 0 for instant download
+const successCountLimit = 0; // How many continous success checks required to start download, set 0 for instant download
 const closeTabInterval = -1; // set to -1 to avoid auto close new opened tabs
 const closeWindowInterval = -1; // set to -1 to avoid auto close current window
 
@@ -144,7 +144,7 @@ async function DirectDownload(event) {
             },
             onload: function (response) {
                 console.log(`successCount = ${successCount}, code = ${response.status}`);
-                if (response.status == 200) {
+                if (response.status == 200 || response.status == 403) { // 403 means cloudflare middleware
                     successCount += 1;
                     if (successCount >= successCountLimit) {
                         onSuccessCallback();
