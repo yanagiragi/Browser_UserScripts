@@ -1,12 +1,19 @@
 // ==UserScript==
 // @name         MelonBooks_Enhanced
 // @namespace    Yr
-// @version      2.0
+// @version      2.1
 // @description  Add clipboard feature to simple copy infos of current page
 // @author       yanagiragi
 // @match        https://www.melonbooks.co.jp/detail/detail.php?product_id=*
 // @grant        GM_setClipboard
 // ==/UserScript==
+
+function CreateBtn () {
+    const btn = document.createElement("button")
+    btn.style['padding'] = '5px'
+    btn.style['margin'] = '5px'
+    return btn
+}
 
 (function () {
     'use strict';
@@ -15,15 +22,15 @@
     if (window.top != window.self)  //-- Don't run on frames or iframes
         return
 
-    const title = document.querySelector('.clearfix h1')
-    const circle = document.querySelector('.clearfix .circle')
+    const title = document.querySelector('.page-header')
+    const circle = document.querySelector('.author-name a')
 
     const mainDiv = document.createElement("div")
     mainDiv.style['padding-bottom'] = '10px'
-    document.getElementsByClassName('head')[0].prepend(mainDiv)
+    document.getElementsByClassName('item-header')[0].prepend(mainDiv)
 
     // setup copy to clipboard
-    const copyBtn = document.createElement("button")
+    const copyBtn = CreateBtn()
     copyBtn.addEventListener('click', event => {
         if (title && circle)
             GM_setClipboard(`${circle.innerHTML} - ${title.innerHTML}\n${location.href}\n`)
@@ -35,7 +42,7 @@
 
     // setup Toranoana
     const toranoanaLink = document.createElement("a")
-    const toranoanaBtn = document.createElement("button")
+    const toranoanaBtn = CreateBtn()
     toranoanaBtn.addEventListener('click', event => {
         if (title) {
             const toranoanaUrl = `https://ec.toranoana.jp/tora_r/ec/app/catalog/list/?searchWord=${title.innerHTML}&searchBackorderFlg=0&searchUsedItemFlg=1&searchDisplay=0&detailSearch=true`
@@ -49,7 +56,7 @@
 
     // setup Mandarake
     const manadarakeLink = document.createElement("a")
-    const manadarakeBtn = document.createElement("button")
+    const manadarakeBtn = CreateBtn()
     manadarakeBtn.addEventListener('click', event => {
         if (title) {
             const manadarakeUrl = `https://order.mandarake.co.jp/order/listPage/list?keyword=${title.innerHTML}`
