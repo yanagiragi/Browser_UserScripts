@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Transit Yahoo japan Enhanced
 // @namespace    Yr
-// @version      1.0
+// @version      1.1
 // @description  Add clipboard feature to simple copy infos of current page
 // @author       yanagiragi
 // @match        https://transit.yahoo.co.jp/search/result*
@@ -13,6 +13,10 @@
     'use strict';
     Mount();
 })();
+
+function sleep (ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function Mount () {
     const summaries = [...document.querySelectorAll('.routeSummary .option ul')]
@@ -27,13 +31,22 @@ function Mount () {
     summaries.forEach(x => {
         x.insertAdjacentHTML('beforeend', buttonHtml)
         const btn = x.querySelector('.yrTransitBtn')
-        btn.addEventListener('click', (event) => {
+        btn.addEventListener('click', async (event) => {
             event.stopPropagation()
             const title = document.querySelector('.title').textContent.replace('→', ' → ')
             const time = x.parentElement.parentElement.querySelector('.time').textContent
             const startTime = time.substring(0, time.indexOf('発'))
             const endTime = time.substring(time.indexOf('→') + 1, time.indexOf('着'))
-            const shortUrl = x.parentElement.querySelector('.shortUrl').value
+            let shortUrl = x.parentElement.querySelector('.shortUrl').value
+            if (!shortUrl) {
+                const shareButton = x.parentElement.querySelector('.shareButton')
+                shareButton.click()
+                while (!shortUrl) {
+                    shortUrl = x.parentElement.querySelector('.shortUrl').value
+                    await sleep(500)
+                }
+            }
+            console.log(`shortUrl = ${shortUrl}`)
             const firstTransit = [...x.parentElement.parentElement.parentElement.parentElement.querySelectorAll('.transport')].filter(x => x.textContent != '徒歩')?.[0].textContent
             const content = `${startTime} ~ ${endTime}: ${title} via [${firstTransit}](${shortUrl})`
             GM_setClipboard(content)
