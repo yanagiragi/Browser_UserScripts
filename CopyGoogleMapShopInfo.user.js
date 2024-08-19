@@ -1,21 +1,22 @@
 // ==UserScript==
 // @name         Copy google map shop Info
 // @namespace    Yr
-// @version      1.0
+// @version      1.1
 // @description  Copy shop info to markdown format
 // @author       yanagiragi
 // @match        https://www.google.com/maps/place/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=google.com
+// @require      https://cdnjs.cloudflare.com/ajax/libs/sentinel-js/0.0.5/sentinel.min.js
 // @grant        none
 // ==/UserScript==
 
-(function () {
-    'use strict';
-    Setup();
-})();
+sentinel.on('.m6QErb.Pf6ghf.ecceSd.tLjsW[role^=region]', (el) => {
+    console.log(`Found ${el}`)
+    Setup()
+})
 
-function Setup() {
-    const block = document.querySelector('.m6QErb.Pf6ghf.ecceSd.tLjsW')
+function Setup () {
+    const block = document.querySelector('.m6QErb.Pf6ghf.ecceSd.tLjsW[role^=region]')
     const btnHtml = `<div jstcache="745" class="etWJQ jym1ob kdfrQc bWQG4d" jsan="t-WC_3NrOh6j8,7.etWJQ,7.jym1ob,7.kdfrQc,7.bWQG4d">
     <div jstcache="121" style="display:none"></div><button
         jsaction="pane.placeActions.share;keydown:pane.placeActions.share" jstcache="124" aria-label=""
@@ -39,7 +40,7 @@ function Setup() {
     copyBtn.addEventListener('click', CopyInfo);
 }
 
-function CopyInfo(event) {
+async function CopyInfo (event) {
     event.stopPropagation();
 
     const title = document.querySelector('.bwoZTb').textContent.trim()
@@ -55,23 +56,51 @@ function CopyInfo(event) {
             data[times[i]] = [days[i]]
         }
     }
-    const timeString = Object.entries(data).map(ToOpenTimeString).join(', ')
 
-    Copy(`[${title}](${location.href}): ${timeString}`)
-    console.log(`Copied: [${title}](${location.href}): ${timeString}`);
+    const timeString = Object.entries(data).map(ToOpenTimeString).join(', ')
+    const url = await GetShortUrl()
+
+    Copy(`[${title}](${url}): ${timeString}`)
+    console.log(`Copied: [${title}](${url}): ${timeString}`)
 }
 
-function ToOpenTimeString(data) {
+function ToOpenTimeString (data) {
     const [key, value] = data
     if (value.length == 7) return key; // don't display Mon~Sun if they are have same open time
     return `${value}: ${key}`
 }
 
-function Copy(value) {
+function Copy (value) {
     const el = document.createElement('textarea');
     el.value = value;
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
+}
+
+const shortUrlCache = {}
+async function GetShortUrl () {
+
+    const key = location.href
+    if (key in shortUrlCache) {
+        return shortUrlCache[key]
+    }
+
+    const shareButton = document.querySelector('button.g88MCb.S9kvJb[data-value=Share]')
+    shareButton.click()
+
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    let url = document.querySelector('input.vrsrZe')
+    while (!url) {
+        await sleep(500)
+        url = document.querySelector('input.vrsrZe')
+    }
+    const shortUrl = url.value
+    shortUrlCache[key] = shortUrl
+
+    const closeButton = document.querySelector('button.OyzoZb')
+    closeButton.click()
+
+    return shortUrl
 }
