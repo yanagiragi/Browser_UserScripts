@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Copy google map shop Info
 // @namespace    Yr
-// @version      1.1
+// @version      1.2
 // @description  Copy shop info to markdown format
 // @author       yanagiragi
 // @match        https://www.google.com/maps/place/*
@@ -43,7 +43,7 @@ function Setup () {
 async function CopyInfo (event) {
     event.stopPropagation();
 
-    const title = document.querySelector('.bwoZTb').textContent.trim()
+    const title = document.querySelector('.bwoZTb')?.textContent?.trim() || document.querySelector('.DUwDvf')?.textContent?.trim()
     const days = [...document.querySelectorAll('.ylH6lf')].map(x => x.textContent.trim())
     const times = [...document.querySelectorAll('.mxowUb')].map(x => x.textContent.trim())
     const data = {}
@@ -87,7 +87,7 @@ async function GetShortUrl () {
         return shortUrlCache[key]
     }
 
-    const shareButton = document.querySelector('button.g88MCb.S9kvJb[data-value=Share]')
+    const shareButton = document.querySelector('button.g88MCb.S9kvJb[data-value=Share]') || document.querySelector('button.g88MCb.S9kvJb[data-value=分享]')
     shareButton.click()
 
     const sleep = ms => new Promise(r => setTimeout(r, ms));
