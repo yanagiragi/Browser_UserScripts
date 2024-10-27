@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OpenTwitterPixivLinks
 // @namespace    Yr
-// @version      1.0
+// @version      1.1
 // @description  Open all twitter or pixiv image links in new tab
 // @author       yanagiragi
 // @match        https://mail.google.com/mail/u/0/
@@ -35,7 +35,13 @@ function click () {
 }
 
 function mount () {
-    const bar = document.querySelector('.G-tF')
+    const bar = [...document.querySelectorAll('.G-atb')]
+        .filter(x => x.style['display'] != 'none')
+        ?.[0]
+    if (bar.querySelector('#YrOpenTwtterButuon')) {
+        // already mounted
+        return;
+    }
     bar.insertAdjacentHTML('beforeend', `<div id="YrOpenTwtterButuon" class="asa"><div class="ar8 T-I-J3 J-J5-Ji"></div></div>`)
 
     const button = document.querySelector('#YrOpenTwtterButuon')
@@ -46,10 +52,16 @@ function mount () {
 
 (function () {
     'use strict';
+    const mailRegex = /mail\.google\.com\/mail\/u\/0\/#all\/(.*)/
     let interval = setInterval(() => {
+        // only mount button in mail detail page
+        if (!location.href.match(mailRegex)) {
+            return;
+        }
+
+        // wait for bar shows up
         if (document.querySelector('.asa')) {
             mount()
-            clearInterval(interval)
         }
-    }, 500)
+    }, 1000)
 })();
