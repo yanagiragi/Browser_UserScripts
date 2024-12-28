@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         OpenTwitterPixivLinks
 // @namespace    Yr
-// @version      1.1
-// @description  Open all twitter or pixiv image links in new tab
+// @version      1.3
+// @description  Open all twitter or pixiv image links in new tab in gmail
 // @author       yanagiragi
 // @match        https://mail.google.com/mail/u/0/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=google.com
@@ -30,6 +30,7 @@ function openPixivLinks () {
 }
 
 function click () {
+    console.log('click')
     openTwitterLinks()
     openPixivLinks()
 }
@@ -38,13 +39,13 @@ function mount () {
     const bar = [...document.querySelectorAll('.G-atb')]
         .filter(x => x.style['display'] != 'none')
         ?.[0]
-    if (bar.querySelector('#YrOpenTwtterButuon')) {
+    if (bar.querySelector('.YrOpenTwtterButuon')) {
         // already mounted
         return;
     }
-    bar.insertAdjacentHTML('beforeend', `<div id="YrOpenTwtterButuon" class="asa"><div class="ar8 T-I-J3 J-J5-Ji"></div></div>`)
+    bar.insertAdjacentHTML('beforeend', `<div class="YrOpenTwtterButuon" class="asa"><div class="ar8 T-I-J3 J-J5-Ji"></div></div>`)
 
-    const button = document.querySelector('#YrOpenTwtterButuon')
+    const button = bar.querySelector('.YrOpenTwtterButuon')
     button.addEventListener('click', click)
 
     console.log(`mount on ${button}`)
@@ -52,7 +53,7 @@ function mount () {
 
 (function () {
     'use strict';
-    const mailRegex = /mail\.google\.com\/mail\/u\/0\/#all\/(.*)/
+    const mailRegex = /mail\.google\.com\/mail\/u\/0\/(.*)/
     let interval = setInterval(() => {
         // only mount button in mail detail page
         if (!location.href.match(mailRegex)) {
