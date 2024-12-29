@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OpenTwitterPixivLinks
 // @namespace    Yr
-// @version      1.3
+// @version      1.4
 // @description  Open all twitter or pixiv image links in new tab in gmail
 // @author       yanagiragi
 // @match        https://mail.google.com/mail/u/0/
@@ -11,7 +11,7 @@
 
 function openTwitterLinks () {
     const content = document.querySelector('.ii.gt').textContent
-    const matches = content.match(/(pbs\.twimg\.com\/media\/.*\.jpg:orig)/g)
+    const matches = content.match(/(pbs\.twimg\.com\/media\/.*:orig)/g)
     const set = [...new Set(matches)]
     set.forEach(el => {
         console.log(`open ${el}`)
