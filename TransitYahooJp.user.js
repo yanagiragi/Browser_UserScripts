@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Transit Yahoo japan Enhanced
 // @namespace    Yr
-// @version      1.2
+// @version      1.3
 // @description  Add clipboard feature to simple copy infos of current page
 // @author       yanagiragi
 // @match        https://transit.yahoo.co.jp/search/result*
@@ -47,7 +47,7 @@ function Mount () {
                 }
             }
             console.log(`shortUrl = ${shortUrl}`)
-            const firstTransit = [...x.parentElement.parentElement.parentElement.querySelectorAll('.transport')].filter(x => x.textContent != '徒歩')?.[0].textContent
+            const firstTransit = [...x.parentElement.parentElement.parentElement.querySelectorAll('.transport')].filter(x => !x.textContent.includes('徒歩'))?.[0].textContent
             const content = `${startTime} ~ ${endTime}: ${title} via [${firstTransit}](${shortUrl})`
             GM_setClipboard(content)
             console.log(`Copied: ${content}`)
