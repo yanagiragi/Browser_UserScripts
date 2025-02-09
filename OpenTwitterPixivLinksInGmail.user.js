@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OpenTwitterPixivLinks
 // @namespace    Yr
-// @version      1.4
+// @version      1.5
 // @description  Open all twitter or pixiv image links in new tab in gmail
 // @author       yanagiragi
 // @match        https://mail.google.com/mail/u/0/
@@ -9,21 +9,31 @@
 // @grant        none
 // ==/UserScript==
 
-function openTwitterLinks () {
+function GetMatchLinks () {
+    return [GetPixivLinks(), GetTwitterLinks()].flat()
+}
+
+function GetTwitterLinks () {
     const content = document.querySelector('.ii.gt').textContent
     const matches = content.match(/(pbs\.twimg\.com\/media\/.*:orig)/g)
-    const set = [...new Set(matches)]
-    set.forEach(el => {
+    return [...new Set(matches)]
+}
+
+function GetPixivLinks () {
+    const content = document.querySelector('.ii.gt').textContent
+    const matches = content.match(/www\.pixiv\.net\/artworks\/\d+/g)
+    return [...new Set(matches)]
+}
+
+function openTwitterLinks () {
+    GetTwitterLinks().forEach(el => {
         console.log(`open ${el}`)
         window.open(`https://${el}`, '_blank')
     })
 }
 
 function openPixivLinks () {
-    const content = document.querySelector('.ii.gt').textContent
-    const matches = content.match(/www\.pixiv\.net\/artworks\/\d+/g)
-    const set = [...new Set(matches)]
-    set.forEach(el => {
+    GetPixivLinks().forEach(el => {
         console.log(`open ${el}`)
         window.open(`https://${el}`, '_blank')
     })
@@ -39,13 +49,14 @@ function mount () {
     const bar = [...document.querySelectorAll('.G-atb')]
         .filter(x => x.style['display'] != 'none')
         ?.[0]
-    if (bar.querySelector('.YrOpenTwtterButuon')) {
+    const linkCount = GetMatchLinks().length
+    if (bar.querySelector('.YrOpenTwtterButton')) {
         // already mounted
         return;
     }
-    bar.insertAdjacentHTML('beforeend', `<div class="YrOpenTwtterButuon" class="asa"><div class="ar8 T-I-J3 J-J5-Ji"></div></div>`)
+    bar.insertAdjacentHTML('beforeend', `<div class="YrOpenTwtterButton" class="asa"><div class="ar8 T-I-J3 J-J5-Ji"></div></div><div id="YrOpenTwtterButtonLinks">${linkCount}</div>`)
 
-    const button = bar.querySelector('.YrOpenTwtterButuon')
+    const button = bar.querySelector('.YrOpenTwtterButton')
     button.addEventListener('click', click)
 
     console.log(`mount on ${button}`)
