@@ -3,8 +3,11 @@
 // @namespace   Yr
 // @include     http://www.mediafire.com/file/*
 // @include     https://www.mediafire.com/file/*
-// @version     2.0
+// @include     http://www.mediafire.com/file_premium/*
+// @include     https://www.mediafire.com/file_premium/*
+// @version     2.1
 // @grant       none
+// @description Auto Download MediaFire
 // ==/UserScript==
 // if error occurs with closing windows, try config firefox by accessing about:config
 var set;
@@ -17,7 +20,7 @@ var set;
     set = setInterval(closeWindows, 1000 * 5);
 })();
 
-function closeWindows() {
+function closeWindows () {
     window.close();
     clearInterval(set);
 }
