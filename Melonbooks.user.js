@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         MelonBooks_Enhanced
 // @namespace    Yr
-// @version      2.1
+// @version      2.2
 // @description  Add clipboard feature to simple copy infos of current page
 // @author       yanagiragi
 // @match        https://www.melonbooks.co.jp/detail/detail.php?product_id=*
+// @match        https://www.melonbooks.co.jp/products/detail.php?product_id=*
 // @grant        GM_setClipboard
 // ==/UserScript==
 
