@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Copy google map shop Info
 // @namespace    Yr
-// @version      1.2
+// @version      1.3
 // @description  Copy shop info to markdown format
 // @author       yanagiragi
 // @match        https://www.google.com/maps/place/*
@@ -57,7 +57,13 @@ async function CopyInfo (event) {
         }
     }
 
-    const timeString = Object.entries(data).map(ToOpenTimeString).join(', ')
+    let timeString = Object.entries(data).map(ToOpenTimeString).join(', ')
+
+    // custom rules: Display weekday then weekends
+    timeString = timeString.replace('星期六,星期日:', '週末')
+    timeString = timeString.replace(' 星期一,星期三,星期二,星期五,星期四:', '')
+    timeString = timeString.split(', ').sort().join(', ')
+
     const url = await GetShortUrl()
 
     Copy(`[${title}](${url}): ${timeString}`)
@@ -87,7 +93,7 @@ async function GetShortUrl () {
         return shortUrlCache[key]
     }
 
-    const shareButton = document.querySelector('button.g88MCb.S9kvJb[data-value=Share]') || document.querySelector('button.g88MCb.S9kvJb[data-value=分享]')
+    const shareButton = document.querySelector('button.S9kvJb[data-value=Share]') || document.querySelector('button.S9kvJb[data-value=分享]')
     shareButton.click()
 
     const sleep = ms => new Promise(r => setTimeout(r, ms));
