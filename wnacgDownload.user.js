@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         wnacgDownload
 // @namespace    Yr
-// @version      3.0.3
+// @version      4.0.0
 // @description  Enhanced download of wnacg
 // @author       yanagiragi
 // @require      https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.js
@@ -74,6 +74,34 @@ async function _Fetch (url) {
     })
 }
 
+async function _FetchDownloadLink (CONFIG) {
+    return new Promise((resolve, reject) => {
+        GM_xmlhttpRequest({
+            method: "POST",
+            url: CONFIG.WORKER_API,
+            headers: { // Without header it return 200 and seldom return 503 even if service is not availiable
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Accept-Language": "zh-TW,zh;q=0.8,en-US;q=0.5,en;q=0.3",
+                "Upgrade-Insecure-Requests": "1",
+                "Pragma": "no-cache",
+                "Cache-Control": "no-cache",
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+                file_key: CONFIG.FILE_KEY,
+                file_name: CONFIG.FILE_NAME
+            }),
+            onload: function (response) {
+                resolve(response.responseText)
+            },
+            onerror: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
 function _PromissAll (promises, progressCallback) {
     let count = 0;
     progressCallback(0);
@@ -99,9 +127,12 @@ async function ParseDownloadPageLink (url) {
 
 async function ParseDownloadLink (target) {
     const result = await _Fetch(target.replace('wnacg.org', location.hostname));
-    const matches = result.match(/down_btn ads\" href="(.*?)">/);
-    const rawLink = `${location.protocol}//` + _Unescape(matches[1]); // fixs download re-naming of server behaviour
-    return new URL(rawLink).href;
+    let scripts = result.substring(result.indexOf('<script>') + '<script>'.length)
+    scripts = scripts.substring(0, scripts.indexOf('</script>'))
+
+    const CONFIG = eval(`${scripts}; CONFIG`)
+    const response = await _FetchDownloadLink(CONFIG)
+    return JSON.parse(response)?.url
 }
 
 function GetCategory () {
@@ -138,13 +169,13 @@ async function DirectDownload (event) {
             },
             timeout: 1000 * 10,
             onerror: function (error) {
-                console.log('onerror')
+                console.log('onerror: ' + error)
                 successCount = 0;
                 onFailCallback();
             },
             onload: function (response) {
-                console.log(`successCount = ${successCount}, code = ${response.status}`);
-                if (response.status == 200 || response.status == 403) { // 403 means cloudflare middleware
+                console.log(`successCount = ${successCount}, code = ${response.status}, resp = ${JSON.stringify(response)}`);
+                if (response.status == 200 || response.status == 403 || response.responseHeaders.includes('cloudflare')) { // 403 means cloudflare middleware
                     successCount += 1;
                     if (successCount >= successCountLimit) {
                         onSuccessCallback();
@@ -334,7 +365,6 @@ async function SetupDirectDownloadButton () {
     const category = GetCategory();
     const downloadPageLink = await ParseDownloadPageLink(location.href);
     let downloadLink = await ParseDownloadLink(downloadPageLink);
-    downloadLink = downloadLink.replace(/\?n=/, `?n=[${category}]`)
 
     console.log(`downloadPageLink = ${downloadPageLink}`) // for debug!
     console.log(`downloadLink = ${downloadLink}`); // for debug!
